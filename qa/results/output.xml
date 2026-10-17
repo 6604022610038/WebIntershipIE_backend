@@ -1,0 +1,1853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.14.7 on win32)" generated="2026-09-29T15:09:35.400703" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="C:\Users\OS\Downloads\WebIntership_Updated (1)\WebIntership\qa\tests">
+<suite id="s1-s1" name="01 Auth" source="C:\Users\OS\Downloads\WebIntership_Updated (1)\WebIntership\qa\tests\01_auth.robot">
+<test id="s1-s1-t1" name="Student Can Login With Valid Credentials" line="6">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:35.565502" level="INFO">${body} = {'username': '640123456', 'password': '123456'}</msg>
+<var>${body}</var>
+<arg>username=${STUDENT_USER}</arg>
+<arg>password=${STUDENT_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:35.564989" elapsed="0.000550"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:37.733357" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"username": "640123456", "password": "123456"}' 
+ </msg>
+<msg time="2026-09-29T15:09:37.733487" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '451', 'ETag': 'W/"1c3-fDoxn1tZYf9uFy9x9ZevllZ9huU"', 'Date': 'Tue, 29 Sep 2026 08:09:37 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เข้าสู่ระบบสำเร็จ","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5Mzc3LCJleHAiOjE3OTA3NTU3Nzd9.ats0mRvQVI1DuujKe960KLp1mLrdJ4pl-dAXj86uIE0","user":{"id":"6aa153e3ac925d4efb59808f","username":"640123456","name":"ธนภัทร สมใจ","role":"student","studentId":"640123456"}} 
+ </msg>
+<msg time="2026-09-29T15:09:37.733655" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:35.565729" elapsed="2.167956"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:37.734646" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:37.734345" elapsed="0.000351"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:09:37.734029" elapsed="0.000744"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>token</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:09:37.734920" elapsed="0.000228"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp.json()}[user][role]</arg>
+<arg>student</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-09-29T15:09:37.735311" elapsed="0.000320"/>
+</kw>
+<tag>auth</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2026-09-29T15:09:35.564279" elapsed="2.171510"/>
+</test>
+<test id="s1-s1-t2" name="Advisor Can Login With Valid Credentials" line="14">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:37.736549" level="INFO">${body} = {'username': 'teacher001', 'password': '123456'}</msg>
+<var>${body}</var>
+<arg>username=${ADVISOR_USER}</arg>
+<arg>password=${ADVISOR_PASS}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:37.736272" elapsed="0.000298"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:39.861435" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"username": "teacher001", "password": "123456"}' 
+ </msg>
+<msg time="2026-09-29T15:09:39.861526" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '477', 'ETag': 'W/"1dd-bLnSOB9hTJ4oi41RJbLwDGPjr+8"', 'Date': 'Tue, 29 Sep 2026 08:09:39 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เข้าสู่ระบบสำเร็จ","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM3OSwiZXhwIjoxNzkwNzU1Nzc5fQ.CTn2ICBG4gGelmCO0DjdPH2BebIImE--MZTMmFGx3iQ","user":{"id":"6a8ef2fec085cbf09d55f403","username":"teacher001","name":"ผศ. ดร.กฤตดุล เหมือนทอง","role":"advisor","studentId":null}} 
+ </msg>
+<msg time="2026-09-29T15:09:39.861663" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:37.736676" elapsed="2.125013"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:39.862567" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:39.862227" elapsed="0.000385"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:09:39.861947" elapsed="0.000718"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp.json()}[user][role]</arg>
+<arg>advisor</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-09-29T15:09:39.862797" elapsed="0.000258"/>
+</kw>
+<tag>auth</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2026-09-29T15:09:37.735997" elapsed="2.127169"/>
+</test>
+<test id="s1-s1-t3" name="Login Fails With Wrong Password" line="21">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:39.864114" level="INFO">${body} = {'username': '640123456', 'password': 'wrong-password'}</msg>
+<var>${body}</var>
+<arg>username=${STUDENT_USER}</arg>
+<arg>password=wrong-password</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:39.863690" elapsed="0.000446"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:41.993213" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '55', 'Content-Type': 'application/json'} 
+ body=b'{"username": "640123456", "password": "wrong-password"}' 
+ </msg>
+<msg time="2026-09-29T15:09:41.993299" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=401, reason=Unauthorized 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '68', 'ETag': 'W/"44-RfLHVGG+5/wYZZcu9JwInj/acsk"', 'Date': 'Tue, 29 Sep 2026 08:09:41 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"รหัสผ่านไม่ถูกต้อง"} 
+ </msg>
+<msg time="2026-09-29T15:09:41.993453" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:39.864255" elapsed="2.129227"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:41.994494" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:41.994191" elapsed="0.000378"/>
+</kw>
+<arg>${resp}</arg>
+<arg>401</arg>
+<status status="PASS" start="2026-09-29T15:09:41.993868" elapsed="0.000762"/>
+</kw>
+<tag>auth</tag>
+<status status="PASS" start="2026-09-29T15:09:39.863370" elapsed="2.131386"/>
+</test>
+<test id="s1-s1-t4" name="Login Fails When Fields Are Missing" line="27">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:41.995463" level="INFO">${body} = {'username': '640123456'}</msg>
+<var>${body}</var>
+<arg>username=${STUDENT_USER}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:41.995189" elapsed="0.000295"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:44.020810" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '25', 'Content-Type': 'application/json'} 
+ body=b'{"username": "640123456"}' 
+ </msg>
+<msg time="2026-09-29T15:09:44.020923" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=400, reason=Bad Request 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '104', 'ETag': 'W/"68-E1u2uNKFdz3Z8d+qB7MMysg7RHE"', 'Date': 'Tue, 29 Sep 2026 08:09:44 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"กรุณากรอกรหัสผู้ใช้และรหัสผ่าน"} 
+ </msg>
+<msg time="2026-09-29T15:09:44.021091" level="INFO">${resp} = &lt;Response [400]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:41.995597" elapsed="2.025526"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:44.022180" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:44.021730" elapsed="0.000531"/>
+</kw>
+<arg>${resp}</arg>
+<arg>400</arg>
+<status status="PASS" start="2026-09-29T15:09:44.021435" elapsed="0.000903"/>
+</kw>
+<tag>auth</tag>
+<status status="PASS" start="2026-09-29T15:09:41.994921" elapsed="2.027614"/>
+</test>
+<test id="s1-s1-t5" name="Get Me Returns Current User" line="33">
+<kw name="Login And Get Token" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:44.023944" level="INFO">${body} = {'username': '640123456', 'password': '123456'}</msg>
+<var>${body}</var>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:44.023528" elapsed="0.000444"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:46.169513" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"username": "640123456", "password": "123456"}' 
+ </msg>
+<msg time="2026-09-29T15:09:46.169601" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '451', 'ETag': 'W/"1c3-+IBEhiaCjcWxdehfwWrIIonedTY"', 'Date': 'Tue, 29 Sep 2026 08:09:46 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เข้าสู่ระบบสำเร็จ","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5Mzg2LCJleHAiOjE3OTA3NTU3ODZ9.zNnDzqphMzjuuO5Q_sfpHwo1gZU1MrLwAnCaTKOlSPY","user":{"id":"6aa153e3ac925d4efb59808f","username":"640123456","name":"ธนภัทร สมใจ","role":"student","studentId":"640123456"}} 
+ </msg>
+<msg time="2026-09-29T15:09:46.169735" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:44.024111" elapsed="2.145650"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:09:46.170426" level="INFO">${data} = {'message': 'เข้าสู่ระบบสำเร็จ', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-09-29T15:09:46.169917" elapsed="0.000536"/>
+</kw>
+<return>
+<value>${data}[token]</value>
+<status status="PASS" start="2026-09-29T15:09:46.170511" elapsed="0.000052"/>
+</return>
+<msg time="2026-09-29T15:09:46.170676" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5Mzg2LCJleHAiOjE3OTA3NTU3ODZ9.zNnDzqphMzjuuO...</msg>
+<var>${token}</var>
+<arg>${STUDENT_USER}</arg>
+<arg>${STUDENT_PASS}</arg>
+<status status="PASS" start="2026-09-29T15:09:44.023175" elapsed="2.147521"/>
+</kw>
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:46.171642" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5Mzg2LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:46.171385" elapsed="0.000280"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:09:46.171701" elapsed="0.000036"/>
+</return>
+<msg time="2026-09-29T15:09:46.171821" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5Mzg2LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:09:46.171174" elapsed="0.000666"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:48.269123" level="INFO">GET Request : url=http://localhost:5000/api/auth/me 
+ path_url=/api/auth/me 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5Mzg2LCJleHAiOjE3OTA3NTU3ODZ9.zNnDzqphMzjuuO5Q_sfpHwo1gZU1MrLwAnCaTKOlSPY'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:09:48.269224" level="INFO">GET Response : url=http://localhost:5000/api/auth/me 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '902', 'ETag': 'W/"386-ZI3EzEM0OtSUsws/wLUwO32VC/k"', 'Date': 'Tue, 29 Sep 2026 08:09:48 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"user":{"_id":"6aa153e3ac925d4efb59808f","username":"640123456","__v":0,"createdAt":"2026-09-09T12:40:31.360Z","name":"ธนภัทร สมใจ","role":"student","updatedAt":"2026-09-11T12:04:13.184Z"},"student":{"phone":"","address":"","faculty":"","mentorName":"","mentorPosition":"","totalHours":0,"requiredHours":320,"_id":"6aa153e3ac925d4efb598090","studentId":"640123456","__v":0,"company":"บริษัท เทคโนโลยี จำกัด","createdAt":"2026-09-09T12:40:31.813Z","currentWeek":5,"email":"thanapat@example.com","internshipEnd":"2026-09-30T00:00:00.000Z","internshipStart":"2026-05-02T00:00:00.000Z","major":"คณะวิทยาการคอมพิวเตอร์","name":"ธนภัทร สมใจ","position":"Data Analyst","progress":50,"status":"กำลังฝึกงาน","totalWeeks":10,"updatedAt":"2026-09-11T12:04:13.683Z"}} 
+ </msg>
+<msg time="2026-09-29T15:09:48.269335" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:09:46.171938" elapsed="2.097417"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:09:48.269413" elapsed="0.000035"/>
+</return>
+<msg time="2026-09-29T15:09:48.269543" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/auth/me</arg>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:09:46.170905" elapsed="2.098656"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:48.270831" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:48.270553" elapsed="0.000322"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:09:48.269741" elapsed="0.001178"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${resp.json()}[user][username]</arg>
+<arg>${STUDENT_USER}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-09-29T15:09:48.271045" elapsed="0.000263"/>
+</kw>
+<tag>auth</tag>
+<status status="PASS" start="2026-09-29T15:09:44.022773" elapsed="4.248637"/>
+</test>
+<doc>ทดสอบระบบเข้าสู่ระบบ (Authentication)</doc>
+<status status="PASS" start="2026-09-29T15:09:35.438821" elapsed="12.832871"/>
+</suite>
+<suite id="s1-s2" name="02 Intelligence" source="C:\Users\OS\Downloads\WebIntership_Updated (1)\WebIntership\qa\tests\02_intelligence.robot">
+<kw name="Prepare Tokens" type="SETUP">
+<kw name="Login And Get Token" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:48.276145" level="INFO">${body} = {'username': '640123456', 'password': '123456'}</msg>
+<var>${body}</var>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:48.275628" elapsed="0.000542"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:50.445287" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"username": "640123456", "password": "123456"}' 
+ </msg>
+<msg time="2026-09-29T15:09:50.445365" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '451', 'ETag': 'W/"1c3-YIXgQpOhEQOg7xXlTrcuxhLpcjQ"', 'Date': 'Tue, 29 Sep 2026 08:09:50 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เข้าสู่ระบบสำเร็จ","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE","user":{"id":"6aa153e3ac925d4efb59808f","username":"640123456","name":"ธนภัทร สมใจ","role":"student","studentId":"640123456"}} 
+ </msg>
+<msg time="2026-09-29T15:09:50.445481" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:48.276256" elapsed="2.169247"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:09:50.446011" level="INFO">${data} = {'message': 'เข้าสู่ระบบสำเร็จ', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-09-29T15:09:50.445638" elapsed="0.000398"/>
+</kw>
+<return>
+<value>${data}[token]</value>
+<status status="PASS" start="2026-09-29T15:09:50.446082" elapsed="0.000033"/>
+</return>
+<msg time="2026-09-29T15:09:50.446209" level="INFO">${s} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSF...</msg>
+<var>${s}</var>
+<arg>${STUDENT_USER}</arg>
+<arg>${STUDENT_PASS}</arg>
+<status status="PASS" start="2026-09-29T15:09:48.275382" elapsed="2.170845"/>
+</kw>
+<kw name="Login And Get Token" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:50.446826" level="INFO">${body} = {'username': 'teacher001', 'password': '123456'}</msg>
+<var>${body}</var>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:50.446565" elapsed="0.000280"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:52.583923" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"username": "teacher001", "password": "123456"}' 
+ </msg>
+<msg time="2026-09-29T15:09:52.584090" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '477', 'ETag': 'W/"1dd-qiAiAUm9UPddnUmPdBpD2RQId/c"', 'Date': 'Tue, 29 Sep 2026 08:09:52 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เข้าสู่ระบบสำเร็จ","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxNzkwNzU1NzkyfQ.7BURj2q1xN9d07QrREuAXF3fTErOOx9IdO6ixPoL9pQ","user":{"id":"6a8ef2fec085cbf09d55f403","username":"teacher001","name":"ผศ. ดร.กฤตดุล เหมือนทอง","role":"advisor","studentId":null}} 
+ </msg>
+<msg time="2026-09-29T15:09:52.584321" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:09:50.446922" elapsed="2.137434"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:09:52.584940" level="INFO">${data} = {'message': 'เข้าสู่ระบบสำเร็จ', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-09-29T15:09:52.584525" elapsed="0.000446"/>
+</kw>
+<return>
+<value>${data}[token]</value>
+<status status="PASS" start="2026-09-29T15:09:52.585020" elapsed="0.000035"/>
+</return>
+<msg time="2026-09-29T15:09:52.585157" level="INFO">${a} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxNzkwNzU1NzkyfQ.7BURj2q1xN9d...</msg>
+<var>${a}</var>
+<arg>${ADVISOR_USER}</arg>
+<arg>${ADVISOR_PASS}</arg>
+<status status="PASS" start="2026-09-29T15:09:50.446362" elapsed="2.138816"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:09:52.585549" level="INFO">${STUDENT_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSF...</msg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${s}</arg>
+<doc>Makes the variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-09-29T15:09:52.585300" elapsed="0.000282"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:09:52.585923" level="INFO">${ADVISOR_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxNzkwNzU1NzkyfQ.7BURj2q1xN9d...</msg>
+<arg>${ADVISOR_TOKEN}</arg>
+<arg>${a}</arg>
+<doc>Makes the variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-09-29T15:09:52.585689" elapsed="0.000276"/>
+</kw>
+<status status="PASS" start="2026-09-29T15:09:48.275029" elapsed="4.310986"/>
+</kw>
+<test id="s1-s2-t1" name="Digital Twin Contains Progress And Risk" line="19">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:52.587055" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:52.586814" elapsed="0.000262"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:09:52.587112" elapsed="0.000027"/>
+</return>
+<msg time="2026-09-29T15:09:52.587216" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:09:52.586626" elapsed="0.000608"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:54.680387" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/student/640123456 
+ path_url=/api/intelligence/student/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:09:54.680500" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/student/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '13338', 'ETag': 'W/"341a-fz65U1EbNTx9p6KTeyxzYOLZNWU"', 'Date': 'Tue, 29 Sep 2026 08:09:54 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"student":{"_id":"6aa153e3ac925d4efb598090","studentId":"640123456","__v":0,"company":"บริษัท เทคโนโลยี จำกัด","createdAt":"2026-09-09T12:40:31.813Z","currentWeek":5,"email":"thanapat@example.com","internshipEnd":"2026-09-30T00:00:00.000Z","internshipStart":"2026-05-02T00:00:00.000Z","major":"คณะวิทยาการคอมพิวเตอร์","name":"ธนภัทร สมใจ","position":"Data Analyst","progress":50,"status":"กำลังฝึกงาน","totalWeeks":10,"updatedAt":"2026-09-11T12:04:13.683Z"},"progress":{"percent":80,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":55,"weight":40,"submitted":5,"approved":3,"expectedByNow":10},"evaluation":{"percent":90,"weight":15,"hasEvaluation":true}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":69,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"journey":[{"date":"2026-05-02T00:00:00.000Z","type":"milestone","icon":"🚀","title":"เริ่มต้นฝึกงาน","detail":"ณ บริษัท เทคโนโลยี จำกัด","status":"done"},{"date":"2026-05-20T00:00:00.000Z","type":"activity","icon":"📅","title":"ส่งรายงานประจำสัปดาห์ที่ 5","detail":"รายงาน","status":"done"},{"date":"2026-05-21T00:00:00.000Z","type":"activity","icon":"📅","title":"นัดพบอาจารย์นิเทศ","detail":"นัดหมาย","status":"done"},{"date":"2026-05-23T00:00:00.000Z","type":"activity","icon":"📅","title":"ส่งรายงานความก้าวหน้า","detail":"รายงาน","status":"done"},{"date":"2026-09-11T12:04:14.840Z","type":"daily-report","icon":"📝","title":"บันทึกประจำวัน: พัฒนา API ระบบนักศึกษา","detail":"อนุมัติแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 5: วิเคราะห์ข้อมูลและจัดทำ Dashboard","detail":"อาจารย์ตรวจแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 4: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"ต้องแก้ไข","status":"warning"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 3: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"อาจารย์ตรวจแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 2: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"อาจารย์ตรวจแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 1: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"ต้องแก้ไข","status":"warning"},{"date":"2026-09-11T12:04:15.008Z","type":"evaluation","icon":"⭐","title":"ผลประเมินจากอาจารย์ (4.5/5)","detail":"นักศึกษามีความตั้งใจในการทำงาน เรียนรู้เร็ว และสามารถทำงานร่วมกับผู้อื่นได้ดี","status":"done"},{"date":"2026-09-29T00:00:00.000Z","type":"activity","icon":"📅","title":"นัดคุยกับอาจารย์","detail":"ทั่วไป","status":"done"},{"date":"2026-09-30T00:00:00.000Z","type":"milestone","icon":"🎯","title":"กำหนดสิ้นสุดการฝึกงาน","detail":"","status":"future"}],"skills":{"knowledge":80,"performance":80,"problemSolving":70,"teamwork":90,"ethics":100},"insight":"ความคืบหน้าฝึกงานอยู่ในเกณฑ์ดีมาก • ควรติดต่อดูแลอย่างเร่งด่วนเนื่องจากพบสัญญาณเสี่ยงหลายจุด","stats":{"weeklyReportCount":5,"dailyReportCount":1,"evaluationCount":1,"activityCount":4},"recommendations":[{"priority":"high","icon":"⏰","title":"ส่งรายงานที่ค้างอยู่โดยเร็ว","detail":"ไม่มีการส่งรายงานมาแล้ว 18 วัน ซึ่งอาจกระทบความคืบหน้าและผลประเมิน","action":"ไปที่หน้า 'บันทึกรายงาน' เพื่อบันทึกความคืบหน้าล่าสุด"},{"priority":"high","icon":"✏️","title":"แก้ไขรายงานตามคำแนะนำอาจารย์","detail":"มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","action":"เปิดดูความคิดเห็นจากอาจารย์แล้วปรับปรุงเนื้อหาที่เกี่ยวข้อง"},{"priority":"high","icon":"🏁","title":"ใกล้สิ้นสุดการฝึกงานแล้ว เตรียมสรุปงานให้ครบ","detail":"เหลือเวลาอีกประมาณ 1 วัน แต่ความคืบหน้าโดยรวมอยู่ที่ 80%","action":"ตรวจสอบรายงานที่ยังค้าง และเตรียมเอกสารสรุปผลการฝึกงานล่วงหน้า"},{"priority":"medium","icon":"📈","title":"เร่งอัตราการส่งรายงานให้ทันกรอบเวลา","detail":"การส่งรายงานตามหลังกรอบเวลาที่ควรจะเป็นอยู่ประมาณ 45%","action":"วางแผนส่งรายงานสัปดาห์ละ 1 ฉบับให้สม่ำเสมอ"},{"priority":"low","icon":"📝","title":"เพิ่มรายละเอียดในรายงานให้ครบถ้วนขึ้น","detail":"รายงานล่าสุดหลายฉบับมีเนื้อหาค่อนข้างสั้น อาจทำให้อาจารย์ประเมินความคืบหน้าได้ไม่ครบถ้วน","action":"อธิบายงานที่ทำ ปัญหาที่พบ และวิธีแก้ไขให้ละเอียดขึ้นในรายงานฉบับถัดไป"}],"reportIntelligence":{"avgQuality":75,"totalAnalyzed":6,"flaggedCount":6,"flagged":[{"reportId":"6aa3ee3e651eeee34a7deeb3","type":"weekly","weekNumber":5,"date":"2026-05-30T00:00:00.000Z","title":"วิเคราะห์ข้อมูลและจัดทำ Dashboard","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb2","type":"weekly","weekNumber":4,"date":"2026-05-23T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeae","type":"daily","date":"2026-05-19T00:00:00.000Z","title":"พัฒนา API ระบบนักศึกษา","status":"อนุมัติแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb1","type":"weekly","weekNumber":3,"date":"2026-05-16T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb0","type":"weekly","weekNumber":2,"date":"2026-05-09T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeaf","type":"weekly","weekNumber":1,"date":"2026-05-02T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}],"weeklyAnalysis":[{"reportId":"6aa3ee3e651eeee34a7deeb3","type":"weekly","weekNumber":5,"date":"2026-05-30T00:00:00.000Z","title":"วิเคราะห์ข้อมูลและจัดทำ Dashboard","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb2","type":"weekly","weekNumber":4,"date":"2026-05-23T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb1","type":"weekly","weekNumber":3,"date":"2026-05-16T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb0","type":"weekly","weekNumber":2,"date":"2026-05-09T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeaf","type":"weekly","weekNumber":1,"date":"2026-05-02T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}],"dailyAnalysis":[{"reportId":"6aa3ee3e651eeee34a7deeae","type":"daily","date":"2026-05-19T00:00:00.000Z","title":"พัฒนา API ระบบนักศึกษา","status":"อนุมัติแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}]}} 
+ </msg>
+<msg time="2026-09-29T15:09:54.680737" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:09:52.587328" elapsed="2.093436"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:09:54.680833" elapsed="0.000039"/>
+</return>
+<msg time="2026-09-29T15:09:54.681056" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/student/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:09:52.586389" elapsed="2.094699"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:54.681903" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.681584" elapsed="0.000378"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:09:54.681308" elapsed="0.000707"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:09:54.682628" level="INFO">${data} = {'student': {'_id': '6aa153e3ac925d4efb598090', 'studentId': '640123456', '__v': 0, 'company': 'บริษัท เทคโนโลยี จำกัด', 'createdAt': '2026-09-09T12:40:31.813Z', 'currentWeek': 5, 'email': 'thanapat@e...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.682141" elapsed="0.000514"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>progress</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.682757" elapsed="0.000097"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>risk</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.682943" elapsed="0.000084"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${data}</arg>
+<arg>journey</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.683113" elapsed="0.000077"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>0 &lt;= ${data}[progress][percent] &lt;= 100</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.683283" elapsed="0.000290"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>$data['risk']['level'] in ['low', 'medium', 'high']</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.683678" elapsed="0.000260"/>
+</kw>
+<tag>progress</tag>
+<tag>risk</tag>
+<tag>twin</tag>
+<status status="PASS" start="2026-09-29T15:09:52.586071" elapsed="2.097993"/>
+</test>
+<test id="s1-s2-t2" name="Digital Twin Contains Recommendations And Report Intelligence" line="30">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:54.685249" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.684876" elapsed="0.000400"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:09:54.685324" elapsed="0.000034"/>
+</return>
+<msg time="2026-09-29T15:09:54.685455" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:09:54.684693" elapsed="0.000785"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:56.761126" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/student/640123456 
+ path_url=/api/intelligence/student/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:09:56.761218" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/student/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '13338', 'ETag': 'W/"341a-fz65U1EbNTx9p6KTeyxzYOLZNWU"', 'Date': 'Tue, 29 Sep 2026 08:09:56 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"student":{"_id":"6aa153e3ac925d4efb598090","studentId":"640123456","__v":0,"company":"บริษัท เทคโนโลยี จำกัด","createdAt":"2026-09-09T12:40:31.813Z","currentWeek":5,"email":"thanapat@example.com","internshipEnd":"2026-09-30T00:00:00.000Z","internshipStart":"2026-05-02T00:00:00.000Z","major":"คณะวิทยาการคอมพิวเตอร์","name":"ธนภัทร สมใจ","position":"Data Analyst","progress":50,"status":"กำลังฝึกงาน","totalWeeks":10,"updatedAt":"2026-09-11T12:04:13.683Z"},"progress":{"percent":80,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":55,"weight":40,"submitted":5,"approved":3,"expectedByNow":10},"evaluation":{"percent":90,"weight":15,"hasEvaluation":true}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":69,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"journey":[{"date":"2026-05-02T00:00:00.000Z","type":"milestone","icon":"🚀","title":"เริ่มต้นฝึกงาน","detail":"ณ บริษัท เทคโนโลยี จำกัด","status":"done"},{"date":"2026-05-20T00:00:00.000Z","type":"activity","icon":"📅","title":"ส่งรายงานประจำสัปดาห์ที่ 5","detail":"รายงาน","status":"done"},{"date":"2026-05-21T00:00:00.000Z","type":"activity","icon":"📅","title":"นัดพบอาจารย์นิเทศ","detail":"นัดหมาย","status":"done"},{"date":"2026-05-23T00:00:00.000Z","type":"activity","icon":"📅","title":"ส่งรายงานความก้าวหน้า","detail":"รายงาน","status":"done"},{"date":"2026-09-11T12:04:14.840Z","type":"daily-report","icon":"📝","title":"บันทึกประจำวัน: พัฒนา API ระบบนักศึกษา","detail":"อนุมัติแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 5: วิเคราะห์ข้อมูลและจัดทำ Dashboard","detail":"อาจารย์ตรวจแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 4: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"ต้องแก้ไข","status":"warning"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 3: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"อาจารย์ตรวจแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 2: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"อาจารย์ตรวจแล้ว","status":"done"},{"date":"2026-09-11T12:04:14.920Z","type":"weekly-report","icon":"📘","title":"รายงานสัปดาห์ที่ 1: เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","detail":"ต้องแก้ไข","status":"warning"},{"date":"2026-09-11T12:04:15.008Z","type":"evaluation","icon":"⭐","title":"ผลประเมินจากอาจารย์ (4.5/5)","detail":"นักศึกษามีความตั้งใจในการทำงาน เรียนรู้เร็ว และสามารถทำงานร่วมกับผู้อื่นได้ดี","status":"done"},{"date":"2026-09-29T00:00:00.000Z","type":"activity","icon":"📅","title":"นัดคุยกับอาจารย์","detail":"ทั่วไป","status":"done"},{"date":"2026-09-30T00:00:00.000Z","type":"milestone","icon":"🎯","title":"กำหนดสิ้นสุดการฝึกงาน","detail":"","status":"future"}],"skills":{"knowledge":80,"performance":80,"problemSolving":70,"teamwork":90,"ethics":100},"insight":"ความคืบหน้าฝึกงานอยู่ในเกณฑ์ดีมาก • ควรติดต่อดูแลอย่างเร่งด่วนเนื่องจากพบสัญญาณเสี่ยงหลายจุด","stats":{"weeklyReportCount":5,"dailyReportCount":1,"evaluationCount":1,"activityCount":4},"recommendations":[{"priority":"high","icon":"⏰","title":"ส่งรายงานที่ค้างอยู่โดยเร็ว","detail":"ไม่มีการส่งรายงานมาแล้ว 18 วัน ซึ่งอาจกระทบความคืบหน้าและผลประเมิน","action":"ไปที่หน้า 'บันทึกรายงาน' เพื่อบันทึกความคืบหน้าล่าสุด"},{"priority":"high","icon":"✏️","title":"แก้ไขรายงานตามคำแนะนำอาจารย์","detail":"มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","action":"เปิดดูความคิดเห็นจากอาจารย์แล้วปรับปรุงเนื้อหาที่เกี่ยวข้อง"},{"priority":"high","icon":"🏁","title":"ใกล้สิ้นสุดการฝึกงานแล้ว เตรียมสรุปงานให้ครบ","detail":"เหลือเวลาอีกประมาณ 1 วัน แต่ความคืบหน้าโดยรวมอยู่ที่ 80%","action":"ตรวจสอบรายงานที่ยังค้าง และเตรียมเอกสารสรุปผลการฝึกงานล่วงหน้า"},{"priority":"medium","icon":"📈","title":"เร่งอัตราการส่งรายงานให้ทันกรอบเวลา","detail":"การส่งรายงานตามหลังกรอบเวลาที่ควรจะเป็นอยู่ประมาณ 45%","action":"วางแผนส่งรายงานสัปดาห์ละ 1 ฉบับให้สม่ำเสมอ"},{"priority":"low","icon":"📝","title":"เพิ่มรายละเอียดในรายงานให้ครบถ้วนขึ้น","detail":"รายงานล่าสุดหลายฉบับมีเนื้อหาค่อนข้างสั้น อาจทำให้อาจารย์ประเมินความคืบหน้าได้ไม่ครบถ้วน","action":"อธิบายงานที่ทำ ปัญหาที่พบ และวิธีแก้ไขให้ละเอียดขึ้นในรายงานฉบับถัดไป"}],"reportIntelligence":{"avgQuality":75,"totalAnalyzed":6,"flaggedCount":6,"flagged":[{"reportId":"6aa3ee3e651eeee34a7deeb3","type":"weekly","weekNumber":5,"date":"2026-05-30T00:00:00.000Z","title":"วิเคราะห์ข้อมูลและจัดทำ Dashboard","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb2","type":"weekly","weekNumber":4,"date":"2026-05-23T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeae","type":"daily","date":"2026-05-19T00:00:00.000Z","title":"พัฒนา API ระบบนักศึกษา","status":"อนุมัติแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb1","type":"weekly","weekNumber":3,"date":"2026-05-16T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb0","type":"weekly","weekNumber":2,"date":"2026-05-09T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeaf","type":"weekly","weekNumber":1,"date":"2026-05-02T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}],"weeklyAnalysis":[{"reportId":"6aa3ee3e651eeee34a7deeb3","type":"weekly","weekNumber":5,"date":"2026-05-30T00:00:00.000Z","title":"วิเคราะห์ข้อมูลและจัดทำ Dashboard","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb2","type":"weekly","weekNumber":4,"date":"2026-05-23T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb1","type":"weekly","weekNumber":3,"date":"2026-05-16T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb0","type":"weekly","weekNumber":2,"date":"2026-05-09T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeaf","type":"weekly","weekNumber":1,"date":"2026-05-02T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}],"dailyAnalysis":[{"reportId":"6aa3ee3e651eeee34a7deeae","type":"daily","date":"2026-05-19T00:00:00.000Z","title":"พัฒนา API ระบบนักศึกษา","status":"อนุมัติแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}]}} 
+ </msg>
+<msg time="2026-09-29T15:09:56.761398" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:09:54.685597" elapsed="2.075822"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:09:56.761478" elapsed="0.000035"/>
+</return>
+<msg time="2026-09-29T15:09:56.761610" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/student/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:09:54.684486" elapsed="2.077142"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:56.762349" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.762072" elapsed="0.000319"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:09:56.761809" elapsed="0.000625"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>recommendations</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.762528" elapsed="0.000236"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>reportIntelligence</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.762858" elapsed="0.000229"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-09-29T15:09:56.763641" level="INFO">Length is 5.</msg>
+<msg time="2026-09-29T15:09:56.763697" level="INFO">${count} = 5</msg>
+<var>${count}</var>
+<arg>${resp.json()}[recommendations]</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.763197" elapsed="0.000517"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${count} &gt;= 1</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.763824" elapsed="0.000230"/>
+</kw>
+<tag>recommendation</tag>
+<tag>report-intelligence</tag>
+<tag>twin</tag>
+<status status="PASS" start="2026-09-29T15:09:54.684215" elapsed="2.079940"/>
+</test>
+<test id="s1-s2-t3" name="Recommendations Endpoint Returns Prioritized Items" line="39">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:56.765249" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.764960" elapsed="0.000316"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:09:56.765325" elapsed="0.000027"/>
+</return>
+<msg time="2026-09-29T15:09:56.765447" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:09:56.764764" elapsed="0.000705"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:09:58.843847" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/recommendations/640123456 
+ path_url=/api/intelligence/recommendations/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:09:58.843946" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/recommendations/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '2566', 'ETag': 'W/"a06-DzO4tN1uvUyUxvaqdXgi4PC8ri0"', 'Date': 'Tue, 29 Sep 2026 08:09:58 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"recommendations":[{"priority":"high","icon":"⏰","title":"ส่งรายงานที่ค้างอยู่โดยเร็ว","detail":"ไม่มีการส่งรายงานมาแล้ว 18 วัน ซึ่งอาจกระทบความคืบหน้าและผลประเมิน","action":"ไปที่หน้า 'บันทึกรายงาน' เพื่อบันทึกความคืบหน้าล่าสุด"},{"priority":"high","icon":"✏️","title":"แก้ไขรายงานตามคำแนะนำอาจารย์","detail":"มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","action":"เปิดดูความคิดเห็นจากอาจารย์แล้วปรับปรุงเนื้อหาที่เกี่ยวข้อง"},{"priority":"high","icon":"🏁","title":"ใกล้สิ้นสุดการฝึกงานแล้ว เตรียมสรุปงานให้ครบ","detail":"เหลือเวลาอีกประมาณ 1 วัน แต่ความคืบหน้าโดยรวมอยู่ที่ 80%","action":"ตรวจสอบรายงานที่ยังค้าง และเตรียมเอกสารสรุปผลการฝึกงานล่วงหน้า"},{"priority":"medium","icon":"📈","title":"เร่งอัตราการส่งรายงานให้ทันกรอบเวลา","detail":"การส่งรายงานตามหลังกรอบเวลาที่ควรจะเป็นอยู่ประมาณ 45%","action":"วางแผนส่งรายงานสัปดาห์ละ 1 ฉบับให้สม่ำเสมอ"},{"priority":"low","icon":"📝","title":"เพิ่มรายละเอียดในรายงานให้ครบถ้วนขึ้น","detail":"รายงานล่าสุดหลายฉบับมีเนื้อหาค่อนข้างสั้น อาจทำให้อาจารย์ประเมินความคืบหน้าได้ไม่ครบถ้วน","action":"อธิบายงานที่ทำ ปัญหาที่พบ และวิธีแก้ไขให้ละเอียดขึ้นในรายงานฉบับถัดไป"}]} 
+ </msg>
+<msg time="2026-09-29T15:09:58.844081" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:09:56.765587" elapsed="2.078519"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:09:58.844174" elapsed="0.000040"/>
+</return>
+<msg time="2026-09-29T15:09:58.844317" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/recommendations/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:09:56.764559" elapsed="2.079777"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:09:58.845112" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:09:58.844786" elapsed="0.000374"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:09:58.844547" elapsed="0.000659"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-09-29T15:09:58.845537" level="INFO">${first} = {'priority': 'high', 'icon': '⏰', 'title': 'ส่งรายงานที่ค้างอยู่โดยเร็ว', 'detail': 'ไม่มีการส่งรายงานมาแล้ว 18 วัน ซึ่งอาจกระทบความคืบหน้าและผลประเมิน', 'action': "ไปที่หน้า 'บันทึกรายงาน' เพื่อบันทึ...</msg>
+<var>${first}</var>
+<arg>${resp.json()}[recommendations]</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an `index` from `list`.</doc>
+<status status="PASS" start="2026-09-29T15:09:58.845329" elapsed="0.000232"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>$first['priority'] in ['high', 'medium', 'low']</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:09:58.845673" elapsed="0.000885"/>
+</kw>
+<tag>recommendation</tag>
+<status status="PASS" start="2026-09-29T15:09:56.764305" elapsed="2.082361"/>
+</test>
+<test id="s1-s2-t4" name="Report Quality Endpoint Returns Score" line="46">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:09:58.847715" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:09:58.847485" elapsed="0.000251"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:09:58.847771" elapsed="0.000025"/>
+</return>
+<msg time="2026-09-29T15:09:58.847875" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:09:58.847310" elapsed="0.000583"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:00.934286" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/report-quality/640123456 
+ path_url=/api/intelligence/report-quality/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:00.934378" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/report-quality/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '5655', 'ETag': 'W/"1617-bKemqigPFmL5P83kDzrBBjdGh7w"', 'Date': 'Tue, 29 Sep 2026 08:10:00 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"avgQuality":75,"totalAnalyzed":6,"flaggedCount":6,"flagged":[{"reportId":"6aa3ee3e651eeee34a7deeb3","type":"weekly","weekNumber":5,"date":"2026-05-30T00:00:00.000Z","title":"วิเคราะห์ข้อมูลและจัดทำ Dashboard","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb2","type":"weekly","weekNumber":4,"date":"2026-05-23T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeae","type":"daily","date":"2026-05-19T00:00:00.000Z","title":"พัฒนา API ระบบนักศึกษา","status":"อนุมัติแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb1","type":"weekly","weekNumber":3,"date":"2026-05-16T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb0","type":"weekly","weekNumber":2,"date":"2026-05-09T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeaf","type":"weekly","weekNumber":1,"date":"2026-05-02T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}],"weeklyAnalysis":[{"reportId":"6aa3ee3e651eeee34a7deeb3","type":"weekly","weekNumber":5,"date":"2026-05-30T00:00:00.000Z","title":"วิเคราะห์ข้อมูลและจัดทำ Dashboard","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb2","type":"weekly","weekNumber":4,"date":"2026-05-23T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb1","type":"weekly","weekNumber":3,"date":"2026-05-16T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeb0","type":"weekly","weekNumber":2,"date":"2026-05-09T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"อาจารย์ตรวจแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]},{"reportId":"6aa3ee3e651eeee34a7deeaf","type":"weekly","weekNumber":1,"date":"2026-05-02T00:00:00.000Z","title":"เรียนรู้ระบบและปฏิบัติงานประจำสัปดาห์","status":"ต้องแก้ไข","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}],"dailyAnalysis":[{"reportId":"6aa3ee3e651eeee34a7deeae","type":"daily","date":"2026-05-19T00:00:00.000Z","title":"พัฒนา API ระบบนักศึกษา","status":"อนุมัติแล้ว","qualityScore":75,"hasProblem":true,"hasSolution":true,"flags":["เนื้อหางานที่ทำค่อนข้างสั้น ควรอธิบายเพิ่มเติม"]}]} 
+ </msg>
+<msg time="2026-09-29T15:10:00.934535" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:09:58.847982" elapsed="2.086575"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:00.934621" elapsed="0.000038"/>
+</return>
+<msg time="2026-09-29T15:10:00.934795" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/report-quality/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:09:58.847098" elapsed="2.087723"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:00.935528" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:00.935253" elapsed="0.000320"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:00.935017" elapsed="0.000601"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>0 &lt;= ${resp.json()}[avgQuality] &lt;= 100</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:10:00.935727" elapsed="0.000383"/>
+</kw>
+<tag>report-intelligence</tag>
+<status status="PASS" start="2026-09-29T15:09:58.846809" elapsed="2.089407"/>
+</test>
+<test id="s1-s2-t5" name="AI Mentor Answers Progress Question" line="52">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:00.936813" level="INFO">${body} = {'question': 'ความคืบหน้าตอนนี้เป็นยังไง'}</msg>
+<var>${body}</var>
+<arg>question=ความคืบหน้าตอนนี้เป็นยังไง</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:00.936600" elapsed="0.000233"/>
+</kw>
+<kw name="Authorized POST" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:00.937551" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:00.937344" elapsed="0.000228"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:00.937605" elapsed="0.000026"/>
+</return>
+<msg time="2026-09-29T15:10:00.937704" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:00.937175" elapsed="0.000547"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:03.014006" level="INFO">POST Request : url=http://localhost:5000/api/intelligence/mentor/640123456 
+ path_url=/api/intelligence/mentor/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE', 'Content-Length': '172', 'Content-Type': 'application/json'} 
+ body=b'{"question": "\\u0e04\\u0e27\\u0e32\\u0e21\\u0e04\\u0e37\\u0e1a\\u0e2b\\u0e19\\u0e49\\u0e32\\u0e15\\u0e2d\\u0e19\\u0e19\\u0e35\\u0e49\\u0e40\\u0e1b\\u0e47\\u0e19\\u0e22\\u0e31\\u0e07\\u0e44\\u0e07"}' 
+ </msg>
+<msg time="2026-09-29T15:10:03.014095" level="INFO">POST Response : url=http://localhost:5000/api/intelligence/mentor/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '479', 'ETag': 'W/"1df-uXEGS+FanoaEZBfEoAJLfCaNP88"', 'Date': 'Tue, 29 Sep 2026 08:10:03 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"reply":"ความคืบหน้าการฝึกงานของคุณตอนนี้อยู่ที่ 80% (ตามกรอบเวลา 100% • การส่งรายงาน 55% • ผลประเมิน 90%) ถือว่าอยู่ในเกณฑ์ดี รักษามาตรฐานนี้ไว้นะครับ 👍","matchedTopic":"ความคืบหน้า","askedAt":"2026-09-29T08:10:03.013Z"} 
+ </msg>
+<msg time="2026-09-29T15:10:03.014215" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:10:00.937817" elapsed="2.076418"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:03.014296" elapsed="0.000035"/>
+</return>
+<msg time="2026-09-29T15:10:03.014427" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/mentor/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2026-09-29T15:10:00.936961" elapsed="2.077485"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:03.015173" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:03.014880" elapsed="0.000337"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:03.014629" elapsed="0.000632"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-09-29T15:10:03.015730" level="INFO">Length is 144.</msg>
+<arg>${resp.json()}[reply]</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-09-29T15:10:03.015357" elapsed="0.000410"/>
+</kw>
+<tag>mentor</tag>
+<status status="PASS" start="2026-09-29T15:10:00.936357" elapsed="2.079530"/>
+</test>
+<test id="s1-s2-t6" name="AI Mentor Handles Empty Question" line="59">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:03.016526" level="INFO">${body} = {'question': ''}</msg>
+<var>${body}</var>
+<arg>question=${EMPTY}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:03.016278" elapsed="0.000268"/>
+</kw>
+<kw name="Authorized POST" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:03.017302" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:03.017086" elapsed="0.000237"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:03.017356" elapsed="0.000019"/>
+</return>
+<msg time="2026-09-29T15:10:03.017447" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:03.016907" elapsed="0.000578"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:05.091715" level="INFO">POST Request : url=http://localhost:5000/api/intelligence/mentor/640123456 
+ path_url=/api/intelligence/mentor/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE', 'Content-Length': '16', 'Content-Type': 'application/json'} 
+ body=b'{"question": ""}' 
+ </msg>
+<msg time="2026-09-29T15:10:05.091806" level="INFO">POST Response : url=http://localhost:5000/api/intelligence/mentor/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '364', 'ETag': 'W/"16c-CPziQOKNdSxdDU7F7bmzPoqk+Ts"', 'Date': 'Tue, 29 Sep 2026 08:10:05 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"reply":"สวัสดีครับ 🤖 ผมคือ AI Internship Mentor ลองถามผมได้เลยครับ เช่น \"ความคืบหน้าตอนนี้เป็นยังไง\" หรือ \"ตอนนี้ควรทำอะไรต่อ\"","matchedTopic":null,"askedAt":"2026-09-29T08:10:05.090Z"} 
+ </msg>
+<msg time="2026-09-29T15:10:05.091932" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:10:03.017556" elapsed="2.074402"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:05.092030" elapsed="0.000042"/>
+</return>
+<msg time="2026-09-29T15:10:05.092191" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/mentor/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2026-09-29T15:10:03.016675" elapsed="2.075540"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:05.092921" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:05.092641" elapsed="0.000324"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:05.092407" elapsed="0.000601"/>
+</kw>
+<kw name="Should Not Be Empty" owner="BuiltIn">
+<msg time="2026-09-29T15:10:05.093371" level="INFO">Length is 118.</msg>
+<arg>${resp.json()}[reply]</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<status status="PASS" start="2026-09-29T15:10:05.093110" elapsed="0.000294"/>
+</kw>
+<tag>mentor</tag>
+<status status="PASS" start="2026-09-29T15:10:03.016030" elapsed="2.077477"/>
+</test>
+<test id="s1-s2-t7" name="What-if Extra Reports Do Not Lower Progress" line="66">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:05.094298" level="INFO">${body} = {'extraReports': '3', 'daysAhead': '0', 'fixPending': True}</msg>
+<var>${body}</var>
+<arg>extraReports=3</arg>
+<arg>daysAhead=0</arg>
+<arg>fixPending=${True}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:05.093963" elapsed="0.000356"/>
+</kw>
+<kw name="Authorized POST" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:05.095157" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:05.094889" elapsed="0.000297"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:05.095235" elapsed="0.000033"/>
+</return>
+<msg time="2026-09-29T15:10:05.095368" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:05.094708" elapsed="0.000683"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:07.155896" level="INFO">POST Request : url=http://localhost:5000/api/intelligence/whatif/640123456 
+ path_url=/api/intelligence/whatif/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE', 'Content-Length': '59', 'Content-Type': 'application/json'} 
+ body=b'{"extraReports": "3", "daysAhead": "0", "fixPending": true}' 
+ </msg>
+<msg time="2026-09-29T15:10:07.155990" level="INFO">POST Response : url=http://localhost:5000/api/intelligence/whatif/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1106', 'ETag': 'W/"452-k1QCnwcrLgOqbUevge2LazUj4Yk"', 'Date': 'Tue, 29 Sep 2026 08:10:07 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"scenario":{"extraReports":3,"daysAhead":0,"fixPending":true,"evalScore":null},"baseline":{"percent":80,"reportsPercent":55,"submitted":5,"expectedByNow":10,"riskLevel":"high","riskScore":69,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"]},"simulated":{"percent":92,"reportsPercent":85,"submitted":8,"expectedByNow":10,"riskLevel":"low","riskScore":12,"reasons":["ส่งรายงานตามหลังกรอบเวลาเล็กน้อย"]},"delta":{"percent":12,"riskScore":-57},"verdict":"positive","verdictText":"สถานการณ์นี้ช่วยให้ภาพรวมการฝึกงานดีขึ้น","projection":{"weeksLeft":1,"ifIdle":{"percent":80,"riskLevel":"high","riskScore":69},"ifSteady":{"percent":84,"riskLevel":"medium","riskScore":49}}} 
+ </msg>
+<msg time="2026-09-29T15:10:07.156109" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:10:05.095483" elapsed="2.060647"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:07.156195" elapsed="0.000036"/>
+</return>
+<msg time="2026-09-29T15:10:07.156328" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/whatif/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2026-09-29T15:10:05.094470" elapsed="2.061901"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:07.157099" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.156817" elapsed="0.000325"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:07.156575" elapsed="0.000609"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>baseline</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.157281" elapsed="0.000171"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>simulated</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.157562" elapsed="0.000155"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${resp.json()}[delta][percent] &gt;= 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.157826" elapsed="0.000360"/>
+</kw>
+<tag>whatif</tag>
+<status status="PASS" start="2026-09-29T15:10:05.093673" elapsed="2.064618"/>
+</test>
+<test id="s1-s2-t8" name="What-if Doing Nothing For Weeks Does Not Reduce Risk" line="75">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:07.159085" level="INFO">${body} = {'extraReports': '0', 'daysAhead': '28'}</msg>
+<var>${body}</var>
+<arg>extraReports=0</arg>
+<arg>daysAhead=28</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.158808" elapsed="0.000298"/>
+</kw>
+<kw name="Authorized POST" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:07.160074" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.159680" elapsed="0.000416"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:07.160131" elapsed="0.000026"/>
+</return>
+<msg time="2026-09-29T15:10:07.160236" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:07.159482" elapsed="0.000772"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:09.234422" level="INFO">POST Request : url=http://localhost:5000/api/intelligence/whatif/640123456 
+ path_url=/api/intelligence/whatif/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE', 'Content-Length': '40', 'Content-Type': 'application/json'} 
+ body=b'{"extraReports": "0", "daysAhead": "28"}' 
+ </msg>
+<msg time="2026-09-29T15:10:09.234534" level="INFO">POST Response : url=http://localhost:5000/api/intelligence/whatif/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1391', 'ETag': 'W/"56f-7etd1CDgk2iQYNTltpFZHX8ID0Q"', 'Date': 'Tue, 29 Sep 2026 08:10:09 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"scenario":{"extraReports":0,"daysAhead":28,"fixPending":false,"evalScore":null},"baseline":{"percent":80,"reportsPercent":55,"submitted":5,"expectedByNow":10,"riskLevel":"high","riskScore":69,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"]},"simulated":{"percent":80,"reportsPercent":55,"submitted":5,"expectedByNow":10,"riskLevel":"high","riskScore":89,"reasons":["ไม่มีการส่งรายงานมาแล้ว 46 วัน","มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"]},"delta":{"percent":0,"riskScore":20},"verdict":"negative","verdictText":"สถานการณ์นี้ทำให้ภาพรวมแย่ลง ควรหลีกเลี่ยงหรือวางแผนรับมือ","projection":{"weeksLeft":1,"ifIdle":{"percent":80,"riskLevel":"high","riskScore":69},"ifSteady":{"percent":84,"riskLevel":"medium","riskScore":49}}} 
+ </msg>
+<msg time="2026-09-29T15:10:09.234678" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:10:07.160327" elapsed="2.074374"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:09.234773" elapsed="0.000045"/>
+</return>
+<msg time="2026-09-29T15:10:09.234944" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/whatif/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2026-09-29T15:10:07.159247" elapsed="2.075717"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:09.235905" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:09.235524" elapsed="0.000450"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:09.235206" elapsed="0.000843"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${resp.json()}[delta][riskScore] &gt;= 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:10:09.236211" elapsed="0.000453"/>
+</kw>
+<tag>whatif</tag>
+<status status="PASS" start="2026-09-29T15:10:07.158439" elapsed="2.078346"/>
+</test>
+<test id="s1-s2-t9" name="Advisor Overview Lists Students" line="82">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:09.238774" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxN...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:09.238499" elapsed="0.000297"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:09.238855" elapsed="0.000031"/>
+</return>
+<msg time="2026-09-29T15:10:09.238971" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxN...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:09.238270" elapsed="0.000720"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:11.359131" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/advisor-overview 
+ path_url=/api/intelligence/advisor-overview 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxNzkwNzU1NzkyfQ.7BURj2q1xN9d07QrREuAXF3fTErOOx9IdO6ixPoL9pQ'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:11.359267" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/advisor-overview 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '51597', 'ETag': 'W/"c98d-M5NdMbtJ2YXYDEfMFRfJ4+WGR94"', 'Date': 'Tue, 29 Sep 2026 08:10:11 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"roster":[{"studentId":"65012346","name":"ใจดี","company":"บริษัท ABC จำกัด","position":"Software Developer","progress":{"percent":37,"breakdown":{"time":{"percent":45,"weight":45,"weeksElapsed":16,"totalWeeks":16},"reports":{"percent":7,"weight":40,"submitted":1,"approved":1,"expectedByNow":16},"evaluation":{"percent":90,"weight":15,"hasEvaluation":true}},"weeksElapsed":16,"totalWeeks":16},"risk":{"level":"high","score":65,"reasons":["ไม่มีการส่งรายงานมาแล้ว 34 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-08-26T14:06:34.153Z","idleDays":34},"lastReportAt":"2026-08-26T14:06:34.153Z"},{"studentId":"640123456","name":"ธนภัทร สมใจ","company":"บริษัท เทคโนโลยี จำกัด","position":"Data Analyst","progress":{"percent":80,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":55,"weight":40,"submitted":5,"approved":3,"expectedByNow":10},"evaluation":{"percent":90,"weight":15,"hasEvaluation":true}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":69,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","มีรายงานที่ต้องแก้ไขค้างอยู่ 2 ฉบับ","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123461","name":"นางสาวกนกวรรณ ศรีสุข","company":"บริษัท ไอทีโซลูชั่น จำกัด","position":"QA Tester","progress":{"percent":66,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":30,"weight":40,"submitted":3,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123481","name":"นางสาวกมลชนก ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"QA Tester","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null,"idleDays":null},"lastReportAt":null},{"studentId":"640123459","name":"นางสาวกมลพร ใจดี","company":"โรงพยาบาลนครราชสีมา","position":"ผู้ช่วยพยาบาล","progress":{"percent":66,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":30,"weight":40,"submitted":3,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123463","name":"นางสาวกิตติพงษ์ ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Mobile Developer","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123475","name":"นางสาวณัฐดนัย ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"System Analyst","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null,"idleDays":null},"lastReportAt":null},{"studentId":"640123457","name":"นางสาวณัฐธิดา ใจดี","company":"บริษัท เทคโนโลยี จำกัด","position":"Frontend Developer","progress":{"percent":66,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":30,"weight":40,"submitted":3,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123469","name":"นางสาวธนกฤต ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Web Developer","progress":{"percent":58,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":12,"weight":40,"submitted":1,"approved":1,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123479","name":"นางสาวนภัสสร ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Software Developer","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null,"idleDays":null},"lastReportAt":null},{"studentId":"640123465","name":"นางสาวพิมพ์ชนก ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Software Developer","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123473","name":"นางสาวภาณุพงศ์ ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"UX/UI Designer","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null,"idleDays":null},"lastReportAt":null},{"studentId":"640123477","name":"นางสาววริศรา ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Mobile Developer","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null,"idleDays":null},"lastReportAt":null},{"studentId":"640123467","name":"นางสาวศุภกร ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"QA Tester","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"medium","score":45,"reasons":["ไม่มีการส่งรายงานมาแล้ว 18 วัน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":"2026-09-11T12:04:14.920Z","idleDays":18},"lastReportAt":"2026-09-11T12:04:14.920Z"},{"studentId":"640123471","name":"นางสาวอธิวัฒน์ ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Data Analyst","progress":{"percent":54,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":60,"weight":15,"hasEvaluation":false}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null,"idleDays":null},"lastReportAt":null},{"studentId":"640123483","name":"นางสาวอรปรียา ตัวอย่าง","company":"บริษัท เทคโนโลยี จำกัด","position":"Web Developer","progress":{"percent":60,"breakdown":{"time":{"percent":100,"weight":45,"weeksElapsed":10,"totalWeeks":10},"reports":{"percent":0,"weight":40,"submitted":0,"approved":0,"expectedByNow":10},"evaluation":{"percent":100,"weight":15,"hasEvaluation":true}},"weeksElapsed":10,"totalWeeks":10},"risk":{"level":"high","score":60,"reasons":["ยังไม่มีการส่งรายงานใด ๆ นับตั้งแต่เริ่มฝึกงาน","ส่งรายงานล่าช้ากว่ากรอบเวลาที่ควรจะเป็นอย่างมาก"],"lastActivityAt":null... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2026-09-29T15:10:11.359642" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:09.239091" elapsed="2.120591"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:11.359769" elapsed="0.000046"/>
+</return>
+<msg time="2026-09-29T15:10:11.359945" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/advisor-overview</arg>
+<arg>${ADVISOR_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:09.237240" elapsed="2.122726"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:11.361034" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:11.360461" elapsed="0.000645"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:11.360184" elapsed="0.000992"/>
+</kw>
+<tag>advisor</tag>
+<tag>command-center</tag>
+<status status="PASS" start="2026-09-29T15:10:09.236944" elapsed="2.124398"/>
+</test>
+<test id="s1-s2-t10" name="Anomaly Overview Returns Summary For Advisor" line="87">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:11.363103" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxN...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:11.362772" elapsed="0.000355"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:11.363169" elapsed="0.000034"/>
+</return>
+<msg time="2026-09-29T15:10:11.363327" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxN...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:11.362410" elapsed="0.000948"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:13.507764" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/anomalies 
+ path_url=/api/intelligence/anomalies 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YThlZjJmZWMwODVjYmYwOWQ1NWY0MDMiLCJ1c2VybmFtZSI6InRlYWNoZXIwMDEiLCJyb2xlIjoiYWR2aXNvciIsImlhdCI6MTc5MDY2OTM5MiwiZXhwIjoxNzkwNzU1NzkyfQ.7BURj2q1xN9d07QrREuAXF3fTErOOx9IdO6ixPoL9pQ'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:13.507876" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/anomalies 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '19442', 'ETag': 'W/"4bf2-X6IgONULG6g9nmLOHjtdyZeJ938"', 'Date': 'Tue, 29 Sep 2026 08:10:13 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"total":44,"bySeverity":{"high":28,"medium":2,"low":14},"studentsAffected":15,"anomalies":[{"type":"duplicate-content","severity":"high","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 10 คู่ (เช่น สัปดาห์ที่ 1 กับ สัปดาห์ที่ 2)","date":"2026-09-11T12:04:14.920Z"},{"type":"late-submission","severity":"high","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 5 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123457","studentName":"นางสาวณัฐธิดา ใจดี","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 1 กับ สัปดาห์ที่ 1)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123457","studentName":"นางสาวณัฐธิดา ใจดี","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123458","studentName":"นายธนภัทร สมใจ","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 2 กับ สัปดาห์ที่ 2)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123458","studentName":"นายธนภัทร สมใจ","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123459","studentName":"นางสาวกมลพร ใจดี","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 3 กับ สัปดาห์ที่ 3)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123459","studentName":"นางสาวกมลพร ใจดี","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123460","studentName":"นายกฤษณะ พรมมา","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 4 กับ สัปดาห์ที่ 4)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123460","studentName":"นายกฤษณะ พรมมา","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123461","studentName":"นางสาวกนกวรรณ ศรีสุข","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 5 กับ สัปดาห์ที่ 5)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123461","studentName":"นางสาวกนกวรรณ ศรีสุข","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123462","studentName":"นายพีรพล ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 6 กับ สัปดาห์ที่ 6)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123462","studentName":"นายพีรพล ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123463","studentName":"นางสาวกิตติพงษ์ ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 7 กับ สัปดาห์ที่ 7)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123463","studentName":"นางสาวกิตติพงษ์ ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123464","studentName":"นายชลธิชา ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 8 กับ สัปดาห์ที่ 8)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123464","studentName":"นายชลธิชา ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123465","studentName":"นางสาวพิมพ์ชนก ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 9 กับ สัปดาห์ที่ 9)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123465","studentName":"นางสาวพิมพ์ชนก ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123466","studentName":"นายณัฐวุฒิ ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 10 กับ สัปดาห์ที่ 10)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123466","studentName":"นายณัฐวุฒิ ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123467","studentName":"นางสาวศุภกร ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 11 กับ สัปดาห์ที่ 11)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123467","studentName":"นางสาวศุภกร ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123468","studentName":"นายวรัญญา ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 12 กับ สัปดาห์ที่ 12)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123468","studentName":"นายวรัญญา ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"duplicate-content","severity":"high","studentId":"640123469","studentName":"นางสาวธนกฤต ตัวอย่าง","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 3 คู่ (เช่น สัปดาห์ที่ 13 กับ สัปดาห์ที่ 13)","date":"2026-09-11T11:42:04.040Z"},{"type":"late-submission","severity":"high","studentId":"640123469","studentName":"นางสาวธนกฤต ตัวอย่าง","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 3 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"bulk-submission","severity":"medium","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"ส่งรายงานย้อนหลังรวดเดียว","detail":"ส่งรายงานประจำสัปดาห์ 5 ฉบับภายใน 24 ชั่วโมง อาจไม่ได้บันทึกตามความเป็นจริงรายสัปดาห์","date":"2026-09-11T12:04:14.920Z"},{"type":"backdated-daily","severity":"medium","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"บันทึกประจำวันลงวันที่ย้อนหลัง","detail":"มีบันทึกประจำวัน 1 ฉบับที่ถูกบันทึกช้ากว่าวันที่ระบุเกิน 7 วัน","date":"2026-09-11T12:04:14.840Z"},{"type":"late-submission","severity":"low","studentId":"65012346","studentName":"ใจดี","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 1 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-08-26T14:06:34.153Z"},{"type":"duplicate-week","severity":"low","studentId":"640123457","studentName":"นางสาวณัฐธิดา ใจดี","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 1","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123458","studentName":"นายธนภัทร สมใจ","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 2","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123459","studentName":"นางสาวกมลพร ใจดี","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 3","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123460","studentName":"นายกฤษณะ พรมมา","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 4","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123461","studentName":"นางสาวกนกวรรณ ศรีสุข","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 5","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123462","studentName":"นายพีรพล ตัวอย่าง","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 6","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123463","studentName":"นางสาวกิตติพงษ์ ตัวอย่าง","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 7","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123464","studentName":"นายชลธิชา ตัวอย่าง","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 8","date":null},{"type":"duplicate-week","severity":"low","studentId":"640123465","studentName":"นางสาวพิมพ์ชนก ตัวอย่าง","title":"หมายเลขสัปดาห์ซ้ำ","detail":"พบรายงานประจำสัปดาห์ที่ใช้หมายเลขสัปดาห์ซ้ำกัน: สัปดาห์ที่ 9","date":null},{"type":"duplicate-week","severity":"low","s... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2026-09-29T15:10:13.508283" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:11.363531" elapsed="2.144785"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:13.508386" elapsed="0.000037"/>
+</return>
+<msg time="2026-09-29T15:10:13.508553" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/anomalies</arg>
+<arg>${ADVISOR_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:11.362092" elapsed="2.146487"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:13.509287" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:13.509008" elapsed="0.000323"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:13.508769" elapsed="0.000606"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>bySeverity</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:10:13.509490" elapsed="0.000279"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${resp.json()}[total] &gt;= 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-09-29T15:10:13.509906" elapsed="0.000550"/>
+</kw>
+<tag>advisor</tag>
+<tag>anomaly</tag>
+<status status="PASS" start="2026-09-29T15:10:11.361622" elapsed="2.148948"/>
+</test>
+<test id="s1-s2-t11" name="Student Anomalies Endpoint Returns List" line="94">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:13.511733" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:13.511497" elapsed="0.000258"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:13.511789" elapsed="0.000024"/>
+</return>
+<msg time="2026-09-29T15:10:13.511887" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:13.511309" elapsed="0.000597"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:15.578558" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/anomalies/640123456 
+ path_url=/api/intelligence/anomalies/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5MzkwLCJleHAiOjE3OTA3NTU3OTB9.9FTo10HgwindSFDYyTDEdSH7SwpI8EzgE-K0-fHiSJE'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:15.578645" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/anomalies/640123456 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1823', 'ETag': 'W/"71f-zYbIDnbdZVOEMZ2WltqARB2+Go0"', 'Date': 'Tue, 29 Sep 2026 08:10:15 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"anomalies":[{"type":"duplicate-content","severity":"high","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"เนื้อหารายงานซ้ำกัน","detail":"พบรายงานที่มีเนื้อหาเหมือนกันเกือบทั้งหมด 10 คู่ (เช่น สัปดาห์ที่ 1 กับ สัปดาห์ที่ 2)","date":"2026-09-11T12:04:14.920Z"},{"type":"late-submission","severity":"high","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"ส่งรายงานล่าช้ามาก","detail":"มีรายงานประจำสัปดาห์ 5 ฉบับที่ส่งช้ากว่าวันสิ้นสุดสัปดาห์เกิน 14 วัน","date":"2026-09-11T12:04:14.920Z"},{"type":"bulk-submission","severity":"medium","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"ส่งรายงานย้อนหลังรวดเดียว","detail":"ส่งรายงานประจำสัปดาห์ 5 ฉบับภายใน 24 ชั่วโมง อาจไม่ได้บันทึกตามความเป็นจริงรายสัปดาห์","date":"2026-09-11T12:04:14.920Z"},{"type":"backdated-daily","severity":"medium","studentId":"640123456","studentName":"ธนภัทร สมใจ","title":"บันทึกประจำวันลงวันที่ย้อนหลัง","detail":"มีบันทึกประจำวัน 1 ฉบับที่ถูกบันทึกช้ากว่าวันที่ระบุเกิน 7 วัน","date":"2026-09-11T12:04:14.840Z"}]} 
+ </msg>
+<msg time="2026-09-29T15:10:15.578768" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:13.511998" elapsed="2.066792"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:15.578854" elapsed="0.000040"/>
+</return>
+<msg time="2026-09-29T15:10:15.579001" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/anomalies/${STUDENT_USER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:13.511030" elapsed="2.067990"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:15.579769" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:15.579477" elapsed="0.000338"/>
+</kw>
+<arg>${resp}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-09-29T15:10:15.579211" elapsed="0.000650"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${resp.json()}</arg>
+<arg>anomalies</arg>
+<doc>Fails if `key` is not found from `dictionary`.</doc>
+<status status="PASS" start="2026-09-29T15:10:15.579975" elapsed="0.000171"/>
+</kw>
+<tag>anomaly</tag>
+<status status="PASS" start="2026-09-29T15:10:13.510718" elapsed="2.069535"/>
+</test>
+<doc>ทดสอบฟีเจอร์ Intelligence ทั้งหมด (Progress, Risk, Twin, Recommendation,
+Report Intelligence, AI Mentor, What-if, Anomaly Detection)</doc>
+<status status="PASS" start="2026-09-29T15:09:48.272245" elapsed="27.308226"/>
+</suite>
+<suite id="s1-s3" name="03 Security" source="C:\Users\OS\Downloads\WebIntership_Updated (1)\WebIntership\qa\tests\03_security.robot">
+<kw name="Prepare Tokens" type="SETUP">
+<kw name="Login And Get Token" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:15.584491" level="INFO">${body} = {'username': '640123456', 'password': '123456'}</msg>
+<var>${body}</var>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:15.584173" elapsed="0.000339"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:17.753042" level="INFO">POST Request : url=http://localhost:5000/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"username": "640123456", "password": "123456"}' 
+ </msg>
+<msg time="2026-09-29T15:10:17.753121" level="INFO">POST Response : url=http://localhost:5000/api/auth/login 
+ status=200, reason=OK 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '451', 'ETag': 'W/"1c3-Fm3yRT6OPSRSD9lU6ZW9WNFxlKE"', 'Date': 'Tue, 29 Sep 2026 08:10:17 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เข้าสู่ระบบสำเร็จ","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ5xs7gg8rQOEmDZQk54XeP92qVTcH8","user":{"id":"6aa153e3ac925d4efb59808f","username":"640123456","name":"ธนภัทร สมใจ","role":"student","studentId":"640123456"}} 
+ </msg>
+<msg time="2026-09-29T15:10:17.753255" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/auth/login</arg>
+<arg>json=${body}</arg>
+<arg>expected_status=200</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:10:15.584600" elapsed="2.168677"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:10:17.753849" level="INFO">${data} = {'message': 'เข้าสู่ระบบสำเร็จ', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5...</msg>
+<var>${data}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variable.</doc>
+<status status="PASS" start="2026-09-29T15:10:17.753417" elapsed="0.000456"/>
+</kw>
+<return>
+<value>${data}[token]</value>
+<status status="PASS" start="2026-09-29T15:10:17.753923" elapsed="0.000037"/>
+</return>
+<msg time="2026-09-29T15:10:17.754072" level="INFO">${s} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ...</msg>
+<var>${s}</var>
+<arg>${STUDENT_USER}</arg>
+<arg>${STUDENT_PASS}</arg>
+<status status="PASS" start="2026-09-29T15:10:15.583886" elapsed="2.170206"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2026-09-29T15:10:17.754422" level="INFO">${STUDENT_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ...</msg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${s}</arg>
+<doc>Makes the variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2026-09-29T15:10:17.754209" elapsed="0.000243"/>
+</kw>
+<status status="PASS" start="2026-09-29T15:10:15.583656" elapsed="2.170836"/>
+</kw>
+<test id="s1-s3-t1" name="Twin Endpoint Requires Login" line="15">
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:19.787879" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/student/640123456 
+ path_url=/api/intelligence/student/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:19.787954" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/student/640123456 
+ status=401, reason=Unauthorized 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '62', 'ETag': 'W/"3e-6U4joKWqeU4I5NCP82uwntF8pOk"', 'Date': 'Tue, 29 Sep 2026 08:10:19 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"กรุณาเข้าสู่ระบบ"} 
+ </msg>
+<msg time="2026-09-29T15:10:19.788061" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}/intelligence/student/${STUDENT_USER}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:17.754819" elapsed="2.033263"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:19.788816" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:19.788528" elapsed="0.000332"/>
+</kw>
+<arg>${resp}</arg>
+<arg>401</arg>
+<status status="PASS" start="2026-09-29T15:10:19.788284" elapsed="0.000622"/>
+</kw>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:17.754540" elapsed="2.034468"/>
+</test>
+<test id="s1-s3-t2" name="Invalid Token Is Rejected" line="20">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:19.790022" level="INFO">${headers} = {'Authorization': 'Bearer not-a-real-token'}</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:19.789785" elapsed="0.000258"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:19.790078" elapsed="0.000029"/>
+</return>
+<msg time="2026-09-29T15:10:19.790183" level="INFO">${headers} = {'Authorization': 'Bearer not-a-real-token'}</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:19.789598" elapsed="0.000602"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:21.817916" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/student/640123456 
+ path_url=/api/intelligence/student/640123456 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer not-a-real-token'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:21.817990" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/student/640123456 
+ status=401, reason=Unauthorized 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '114', 'ETag': 'W/"72-Qh0hXJlapm0/e/yBbzwaZYbCbA8"', 'Date': 'Tue, 29 Sep 2026 08:10:21 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่"} 
+ </msg>
+<msg time="2026-09-29T15:10:21.818096" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:19.790306" elapsed="2.027811"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:21.818178" elapsed="0.000035"/>
+</return>
+<msg time="2026-09-29T15:10:21.818309" level="INFO">${resp} = &lt;Response [401]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/student/${STUDENT_USER}</arg>
+<arg>not-a-real-token</arg>
+<status status="PASS" start="2026-09-29T15:10:19.789394" elapsed="2.028955"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:21.819088" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:21.818764" elapsed="0.000367"/>
+</kw>
+<arg>${resp}</arg>
+<arg>401</arg>
+<status status="PASS" start="2026-09-29T15:10:21.818534" elapsed="0.000640"/>
+</kw>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:19.789149" elapsed="2.030156"/>
+</test>
+<test id="s1-s3-t3" name="Student Cannot View Another Students Twin" line="25">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:21.820437" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:21.820111" elapsed="0.000347"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:21.820494" elapsed="0.000028"/>
+</return>
+<msg time="2026-09-29T15:10:21.820598" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:21.819924" elapsed="0.000692"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:23.853357" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/student/640123457 
+ path_url=/api/intelligence/student/640123457 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ5xs7gg8rQOEmDZQk54XeP92qVTcH8'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:23.853437" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/student/640123457 
+ status=403, reason=Forbidden 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '80', 'ETag': 'W/"50-wPsQDHIqrCk1A/oaNppwSsq5Hxw"', 'Date': 'Tue, 29 Sep 2026 08:10:23 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"ไม่มีสิทธิ์ดูข้อมูลนี้"} 
+ </msg>
+<msg time="2026-09-29T15:10:23.853629" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:21.820711" elapsed="2.032943"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:23.853721" elapsed="0.000039"/>
+</return>
+<msg time="2026-09-29T15:10:23.853868" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/student/${STUDENT_OTHER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:21.819713" elapsed="2.034216"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:23.854623" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:23.854350" elapsed="0.000317"/>
+</kw>
+<arg>${resp}</arg>
+<arg>403</arg>
+<status status="PASS" start="2026-09-29T15:10:23.854118" elapsed="0.000592"/>
+</kw>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:21.819456" elapsed="2.035366"/>
+</test>
+<test id="s1-s3-t4" name="Student Cannot Use Mentor For Another Student" line="30">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:23.855551" level="INFO">${body} = {'question': 'ความคืบหน้า'}</msg>
+<var>${body}</var>
+<arg>question=ความคืบหน้า</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:23.855319" elapsed="0.000253"/>
+</kw>
+<kw name="Authorized POST" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:23.856342" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:23.856124" elapsed="0.000238"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:23.856396" elapsed="0.000020"/>
+</return>
+<msg time="2026-09-29T15:10:23.856489" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:23.855946" elapsed="0.000560"/>
+</kw>
+<kw name="POST" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:25.900554" level="INFO">POST Request : url=http://localhost:5000/api/intelligence/mentor/640123457 
+ path_url=/api/intelligence/mentor/640123457 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ5xs7gg8rQOEmDZQk54XeP92qVTcH8', 'Content-Length': '82', 'Content-Type': 'application/json'} 
+ body=b'{"question": "\\u0e04\\u0e27\\u0e32\\u0e21\\u0e04\\u0e37\\u0e1a\\u0e2b\\u0e19\\u0e49\\u0e32"}' 
+ </msg>
+<msg time="2026-09-29T15:10:25.900638" level="INFO">POST Response : url=http://localhost:5000/api/intelligence/mentor/640123457 
+ status=403, reason=Forbidden 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '152', 'ETag': 'W/"98-RH0gjUCtQFS4et45K3lU2Tcqfb4"', 'Date': 'Tue, 29 Sep 2026 08:10:25 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"ไม่มีสิทธิ์ใช้งานผู้ช่วยนี้สำหรับนักศึกษาคนนี้"} 
+ </msg>
+<msg time="2026-09-29T15:10:25.900756" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>json=${body}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<status status="PASS" start="2026-09-29T15:10:23.856576" elapsed="2.044205"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:25.900849" elapsed="0.000037"/>
+</return>
+<msg time="2026-09-29T15:10:25.901023" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/mentor/${STUDENT_OTHER}</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2026-09-29T15:10:23.855706" elapsed="2.045340"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:25.901763" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:25.901496" elapsed="0.000308"/>
+</kw>
+<arg>${resp}</arg>
+<arg>403</arg>
+<status status="PASS" start="2026-09-29T15:10:25.901248" elapsed="0.000597"/>
+</kw>
+<tag>mentor</tag>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:23.854965" elapsed="2.046988"/>
+</test>
+<test id="s1-s3-t5" name="Student Cannot Access Advisor Overview" line="36">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:25.903025" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:25.902742" elapsed="0.000313"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:25.903101" elapsed="0.000025"/>
+</return>
+<msg time="2026-09-29T15:10:25.903242" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:25.902561" elapsed="0.000706"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:27.931654" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/advisor-overview 
+ path_url=/api/intelligence/advisor-overview 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ5xs7gg8rQOEmDZQk54XeP92qVTcH8'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:27.931740" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/advisor-overview 
+ status=403, reason=Forbidden 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '95', 'ETag': 'W/"5f-OBc23A9+jZVohedT92ePrrkTjEk"', 'Date': 'Tue, 29 Sep 2026 08:10:27 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"คุณไม่มีสิทธิ์ใช้งานส่วนนี้"} 
+ </msg>
+<msg time="2026-09-29T15:10:27.931863" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:25.903387" elapsed="2.028501"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:27.931960" elapsed="0.000112"/>
+</return>
+<msg time="2026-09-29T15:10:27.932207" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/advisor-overview</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:25.902368" elapsed="2.029862"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:27.932955" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:27.932678" elapsed="0.000321"/>
+</kw>
+<arg>${resp}</arg>
+<arg>403</arg>
+<status status="PASS" start="2026-09-29T15:10:27.932438" elapsed="0.000604"/>
+</kw>
+<tag>advisor</tag>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:25.902120" elapsed="2.031030"/>
+</test>
+<test id="s1-s3-t6" name="Student Cannot Access Anomaly Overview" line="41">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:27.934251" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:27.933980" elapsed="0.000292"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:27.934323" elapsed="0.000026"/>
+</return>
+<msg time="2026-09-29T15:10:27.934425" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:27.933787" elapsed="0.000656"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:29.973621" level="INFO">GET Request : url=http://localhost:5000/api/intelligence/anomalies 
+ path_url=/api/intelligence/anomalies 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ5xs7gg8rQOEmDZQk54XeP92qVTcH8'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:29.973701" level="INFO">GET Response : url=http://localhost:5000/api/intelligence/anomalies 
+ status=403, reason=Forbidden 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '95', 'ETag': 'W/"5f-OBc23A9+jZVohedT92ePrrkTjEk"', 'Date': 'Tue, 29 Sep 2026 08:10:29 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"คุณไม่มีสิทธิ์ใช้งานส่วนนี้"} 
+ </msg>
+<msg time="2026-09-29T15:10:29.973811" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:27.934540" elapsed="2.039292"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:29.973963" elapsed="0.000042"/>
+</return>
+<msg time="2026-09-29T15:10:29.974107" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>/intelligence/anomalies</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:27.933580" elapsed="2.040545"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:29.974797" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:29.974529" elapsed="0.000327"/>
+</kw>
+<arg>${resp}</arg>
+<arg>403</arg>
+<status status="PASS" start="2026-09-29T15:10:29.974305" elapsed="0.000593"/>
+</kw>
+<tag>anomaly</tag>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:27.933316" elapsed="2.041690"/>
+</test>
+<test id="s1-s3-t7" name="Student Cannot Access QA Center" line="46">
+<kw name="Authorized GET" owner="common">
+<kw name="Auth Headers" owner="common">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-09-29T15:10:29.976005" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>Authorization=Bearer ${token}</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-09-29T15:10:29.975754" elapsed="0.000272"/>
+</kw>
+<return>
+<value>${headers}</value>
+<status status="PASS" start="2026-09-29T15:10:29.976059" elapsed="0.000019"/>
+</return>
+<msg time="2026-09-29T15:10:29.976149" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3O...</msg>
+<var>${headers}</var>
+<arg>${token}</arg>
+<status status="PASS" start="2026-09-29T15:10:29.975575" elapsed="0.000592"/>
+</kw>
+<kw name="GET" owner="RequestsLibrary">
+<msg time="2026-09-29T15:10:32.005397" level="INFO">GET Request : url=http://localhost:5000/api/qa/results 
+ path_url=/api/qa/results 
+ headers={'User-Agent': 'python-requests/2.34.2', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YWExNTNlM2FjOTI1ZDRlZmI1OTgwOGYiLCJ1c2VybmFtZSI6IjY0MDEyMzQ1NiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzkwNjY5NDE3LCJleHAiOjE3OTA3NTU4MTd9.xIJR9s3sDtzeaQ5xs7gg8rQOEmDZQk54XeP92qVTcH8'} 
+ body=None 
+ </msg>
+<msg time="2026-09-29T15:10:32.005471" level="INFO">GET Response : url=http://localhost:5000/api/qa/results 
+ status=403, reason=Forbidden 
+ headers={'Vary': 'Origin', 'Access-Control-Allow-Credentials': 'true', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '95', 'ETag': 'W/"5f-OBc23A9+jZVohedT92ePrrkTjEk"', 'Date': 'Tue, 29 Sep 2026 08:10:32 GMT', 'Connection': 'keep-alive', 'Keep-Alive': 'timeout=5'} 
+ body={"message":"คุณไม่มีสิทธิ์ใช้งานส่วนนี้"} 
+ </msg>
+<msg time="2026-09-29T15:10:32.005575" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>${BASE_URL}${path}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<status status="PASS" start="2026-09-29T15:10:29.976260" elapsed="2.029336"/>
+</kw>
+<return>
+<value>${resp}</value>
+<status status="PASS" start="2026-09-29T15:10:32.005655" elapsed="0.000035"/>
+</return>
+<msg time="2026-09-29T15:10:32.005785" level="INFO">${resp} = &lt;Response [403]&gt;</msg>
+<var>${resp}</var>
+<arg>/qa/results</arg>
+<arg>${STUDENT_TOKEN}</arg>
+<status status="PASS" start="2026-09-29T15:10:29.975385" elapsed="2.030435"/>
+</kw>
+<kw name="Status Should Be" owner="common">
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-09-29T15:10:32.006492" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resp.status_code}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-09-29T15:10:32.006226" elapsed="0.000308"/>
+</kw>
+<arg>${resp}</arg>
+<arg>403</arg>
+<status status="PASS" start="2026-09-29T15:10:32.006001" elapsed="0.000576"/>
+</kw>
+<tag>qa</tag>
+<tag>security</tag>
+<status status="PASS" start="2026-09-29T15:10:29.975150" elapsed="2.031524"/>
+</test>
+<doc>ทดสอบความปลอดภัยและการควบคุมสิทธิ์ (Authorization)</doc>
+<status status="PASS" start="2026-09-29T15:10:15.581103" elapsed="16.425775"/>
+</suite>
+<status status="PASS" start="2026-09-29T15:09:35.402022" elapsed="56.605591"/>
+</suite>
+<statistics>
+<total>
+<stat pass="23" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="3" fail="0" skip="0">advisor</stat>
+<stat pass="3" fail="0" skip="0">anomaly</stat>
+<stat pass="5" fail="0" skip="0">auth</stat>
+<stat pass="1" fail="0" skip="0">command-center</stat>
+<stat pass="3" fail="0" skip="0">mentor</stat>
+<stat pass="1" fail="0" skip="0">progress</stat>
+<stat pass="1" fail="0" skip="0">qa</stat>
+<stat pass="2" fail="0" skip="0">recommendation</stat>
+<stat pass="2" fail="0" skip="0">report-intelligence</stat>
+<stat pass="1" fail="0" skip="0">risk</stat>
+<stat pass="7" fail="0" skip="0">security</stat>
+<stat pass="2" fail="0" skip="0">smoke</stat>
+<stat pass="2" fail="0" skip="0">twin</stat>
+<stat pass="2" fail="0" skip="0">whatif</stat>
+</tag>
+<suite>
+<stat name="Tests" id="s1" pass="23" fail="0" skip="0">Tests</stat>
+<stat name="01 Auth" id="s1-s1" pass="5" fail="0" skip="0">Tests.01 Auth</stat>
+<stat name="02 Intelligence" id="s1-s2" pass="11" fail="0" skip="0">Tests.02 Intelligence</stat>
+<stat name="03 Security" id="s1-s3" pass="7" fail="0" skip="0">Tests.03 Security</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
