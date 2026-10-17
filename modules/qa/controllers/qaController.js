@@ -159,7 +159,9 @@ exports.runTests = (req, res) => {
 
   const port = process.env.PORT || 5000;
   const baseUrl = process.env.QA_BASE_URL || `http://localhost:${port}/api`;
-  const robotCmd = process.env.ROBOT_CMD || "robot";
+  const robotCmd =
+  process.env.ROBOT_CMD ||
+  path.join(QA_DIR, "..", ".venv", "bin", "robot");
 
   Object.assign(runState, {
     running: true,
